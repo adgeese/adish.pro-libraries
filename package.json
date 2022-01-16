@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "test": "npm run single",
+    "single": "./node_modules/.bin/mocha test/*.js"
+  },
+  "mainDir": "src",
+  "author": "Brandon Wilkins <brandon@adgee.se>",
+  "license": "MIT",
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "docdash": "^1.2.0",
+    "jasmine": "^3.4.0",
+    "jsdoc": "^3.6.7",
+    "jsdoc-to-markdown": "^7.1.0",
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0",
+    "prettier": "1.18.2",
+    "sequelize-cli": "^6.3.0",
+    "shelljs": "^0.8.3",
+    "typescript": "^3.7.5"
+  },
+  "test": "mocha",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
