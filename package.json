@@ -3,7 +3,7 @@
     "test": "npm run single",
     "single": "./node_modules/.bin/mocha test/*.js"
   },
-  "mainDir": "src",
+  "main": "index.js",
   "author": "Brandon Wilkins <brandon@adgee.se>",
   "license": "MIT",
   "devDependencies": {
