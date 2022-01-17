@@ -5,7 +5,7 @@
   },
   "main": "index.js",
   "name" : "adish.pro-libraries",
-  "version" : "v0.1.1",
+  "version" : "v0.1.2",
   "author": "Brandon Wilkins <brandon@adgee.se>",
   "description": "adish.pro support libraries for NodeJS",
   "license": "MIT",
