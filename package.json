@@ -5,7 +5,7 @@
   },
   "main": "index.js",
   "author": "Brandon Wilkins <brandon@adgee.se>",
-  "description": "adish.pro support libraries for NodeJS"
+  "description": "adish.pro support libraries for NodeJS",
   "license": "MIT",
   "devDependencies": {
     "assert": "^2.0.0",
