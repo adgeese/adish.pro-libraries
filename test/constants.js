@@ -3,7 +3,7 @@ var assert = require('assert');
 process.env.NODE_ENV = 'TESTING';
 process.env.ASSET = 'bybit.ETH-USDT';
 
-var constants = require('../lib/constants.js');
+var constants = require('../src/constants');
 
 console.log('Constants', constants)
 

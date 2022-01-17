@@ -3,17 +3,17 @@ const assert = require('assert');
 // Define the application name during log testing
 process.env.APPLICATION = 'Mocha Test';
 
-var logging = logging = require('../lib/logging');
+var logging = logging = require('../src/logging');
 
 describe('Logging Tests Development', () => {
     context('Information and Error', () => {
         afterEach(()=> {
-            logging = require('../lib/logging');
+            logging = require('../src/logging');
         });
         it('Log a message without formating', ()=>{
             logging.log('Test Log Message');
         });
-        it('Log an APU message without formating', ()=>{
+        it('Log an API message without formating', ()=>{
             logging.api('Test API Log Message');
         });
         it ('log an info message', () => {
@@ -34,20 +34,20 @@ describe('Logging Tests Development', () => {
         });
         it ('Run a production information log', () => {
             process.env.NODE_ENV = 'PRODUCTION';
-            logging = require('../lib/logging');
+            logging = require('../src/logging');
             process.env.NODE_ENV = 'DEVELOPMENT';
             logging.api('Silent Production API Logging');
         });
         it ('Run a production information log', () => {
             process.env.NODE_ENV = 'PRODUCTION';
-            logging = require('../lib/logging');
+            logging = require('../src/logging');
             process.env.NODE_ENV = 'DEVELOPMENT';
             logging.log('Silent Production Logging');
-            logging = require('../lib/logging');
+            logging = require('../src/logging');
         });
         it ('Run a production information log', () => {
             process.env.NODE_ENV = 'PRODUCTION';
-            logging = require('../lib/logging');
+            logging = require('../src/logging');
             process.env.NODE_ENV = 'DEVELOPMENT';
             logging.log('Silent Production INFO Logging');
         });

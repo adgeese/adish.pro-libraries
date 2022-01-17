@@ -20,7 +20,7 @@ const asset = process.env.ASSET || 'UNKNOWN-ASSET';
 let exchange = 'BYBIT';
 
 // return the name that associates to the EXCHANGE_FEE_OFFSET_DEFAULT
-for (exchange_name in EXCHANGE_FEE_OFFSET_DETAULTS) {
+for (exchange_name in EXCHANGE_FEE_OFFSET_DEFAULTS) {
     if (asset.toUpperCase().indexOf(exchange_name) !== -1) {
         exchange = exchange_name;
         break;
