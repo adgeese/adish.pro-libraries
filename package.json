@@ -4,6 +4,7 @@
     "single": "./node_modules/.bin/mocha test/*.js"
   },
   "main": "index.js",
+  "version" : "v0.1.0",
   "author": "Brandon Wilkins <brandon@adgee.se>",
   "description": "adish.pro support libraries for NodeJS",
   "license": "MIT",
