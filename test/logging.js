@@ -51,6 +51,9 @@ describe('Logging Tests Development', () => {
             process.env.NODE_ENV = 'DEVELOPMENT';
             logging.log('Silent Production INFO Logging');
         });
+        it('Send multiple parameters to log', ()=> {
+            logging.log('Param1', 'Param2', 'Param3');
+        });
     });
 });
 

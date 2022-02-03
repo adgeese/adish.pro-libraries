@@ -1,7 +1,7 @@
 var assert = require('assert');
 
-process.env.NODE_ENV = 'TESTING';
-process.env.ASSET = 'bybit.ETH-USDT';
+//process.env.NODE_ENV = 'TESTING';
+//process.env.ASSET = 'bybit.ETH-USDT';
 
 var constants = require('../src/constants');
 
@@ -10,7 +10,7 @@ console.log('Constants', constants)
 describe('Testing Constants', () => {
     context('Detailed Logs', () => {
         it('testing environment enabled', ()=>{
-            assert.equal(constants.NODE_ENV, 'TESTING');
+            assert.equal(constants.NODE_ENV, 'DEVELOPMENT');
         });
         it('Detailed logs enabled', ()=>{
             assert.equal(constants.DETAILED_LOGS, true);
@@ -23,7 +23,7 @@ describe('Testing Constants', () => {
     });
     context('Exchange', () => {
         it('Asset is set correctly', () => {
-            assert.equal(constants.ASSET, 'bybit.ETH-USDT');
+            assert.equal(constants.ASSET, 'UNKNOWN-ASSET');
         });
         it('Test it Exchange Constant', () => {
             assert.equal(constants.EXCHANGE, 'BYBIT');

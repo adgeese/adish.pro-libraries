@@ -14,10 +14,10 @@ exports.constants = constants;
  * @name api
  * @param msg
  */
-exports.api = (msg) => {
+exports.api = (...msg) => {
 
     if (msg && ! constants.QUIET_API) {
-        console.log('API'.white, constants.TYPE, msg.gray);
+        console.log('API'.white, constants.TYPE, msg.join(' ').gray);
     }
 
 } // end error
@@ -28,10 +28,10 @@ exports.api = (msg) => {
  * @name error
  * @param msg
  */
-exports.error = (msg) => {
+exports.error = (...msg) => {
 
     if (msg.length > 5) {
-        console.log('Error'.red, constants.TYPE, msg.red)
+        console.log('Error'.red, constants.TYPE, msg.join(' ').red)
     }
 
 } // end error
@@ -43,10 +43,10 @@ exports.error = (msg) => {
  * @name log
  * @param msg
  */
-exports.log = (msg) => {
+exports.log = (...msg) => {
 
     if (msg) {
-        console.log(constants.TYPE, msg)
+        console.log(constants.TYPE, msg.join(' '))
     }
 
 } // end log
@@ -58,10 +58,10 @@ exports.log = (msg) => {
  * @name info
  * @param msg
  */
-exports.info = (msg) => {
+exports.info = (...msg) => {
 
     if (msg && constants.DETAILED_LOGS) {
-        console.log('INFO'.white, constants.TYPE, msg)
+        console.log('INFO'.white, constants.TYPE, msg.join(' '))
     }
 
 } // end log

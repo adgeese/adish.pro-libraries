@@ -4,8 +4,8 @@
     "single": "./node_modules/.bin/mocha test/*.js"
   },
   "main": "index.js",
-  "name" : "adish.pro-libraries",
-  "version" : "v0.1.3",
+  "name": "adish.pro-libraries",
+  "version": "v0.1.3",
   "author": "Brandon Wilkins <brandon@adgee.se>",
   "description": "adish.pro support libraries for NodeJS",
   "license": "MIT",
@@ -24,6 +24,7 @@
   },
   "test": "mocha",
   "dependencies": {
+    "@google-cloud/bigquery": "^5.10.0",
     "colors": "^1.4.0",
     "pg": "^8.7.1"
   },
