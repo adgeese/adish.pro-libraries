@@ -52,7 +52,7 @@ exports.create_table = async (BQ_CONN, BQ_REGION, BQ_DATASET, BQ_TABLE, BQ_TABLE
 /**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name create_dataset
  * @context bigquery
  * @param object BQ_CONN
  * @param string BQ_DATASET
@@ -78,18 +78,14 @@ exports.create_dataset = async (BQ_CONN, BQ_DATASET) => {
 /**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name connect
  * @context bigquery
  * @param string BQ_REGION
  * @return boolean
  **/
 exports.connect = async (BQ_REGION) => {
 
-  const bigquery = new BigQuery({location : SIGNAL_REGION})
-    .catch((err) => {
-      logging.error(err);
-    });
-
+  const bigquery = new BigQuery({location : BQ_REGION});
 
   return bigquery;
 
@@ -99,7 +95,7 @@ exports.connect = async (BQ_REGION) => {
 /**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name delete_table
  * @context bigquery
  * @param object BQ_CONN
  * @param string BQ_DATASET
@@ -125,7 +121,7 @@ exports.delete_table = async (BQ_CONN, BQ_DATASET, BQ_TABLE) => {
 /**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name delete_dataset
  * @context bigquery
  * @param string BQ_CONN
  * @param string BQ_DATASET
@@ -147,9 +143,71 @@ exports.delete_dataset = async (BQ_CONN, BQ_DATASET) => {
 
 
 /**
+ * Query BigQuery for data
+ * 
+ * @name query
+ * @context bigquery
+ * @param object BQ_CONN
+ * @param string BQ_DATASET
+ * @param string BQ_TABLE
+ * @param array BQ_QUERY
+ * @return array
+ **/
+exports.query = async (BQ_CONN, BQ_REGION, BQ_QUERY) => {
+
+  // For all options, see https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+  const options = {
+    query: BQ_QUERY,
+    // Location must match that of the dataset(s) referenced in the query.
+    location: BQ_REGION,
+  };
+
+  // Run the query as a job
+  const [job] = await BQ_CONN.createQueryJob(options);
+
+  logging.info(`Job ${job.id} started.`);
+
+  // Wait for the query to finish
+  const [rows] = await job.getQueryResults();
+
+  return rows;
+
+};
+
+/**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name add_data
+ * @context bigquery
+ * @param object BQ_CONN
+ * @param string BQ_DATASET
+ * @param string BQ_TABLE
+ * @param array BQ_DATA
+ * @return boolean
+ **/
+exports.add_data = async (BQ_CONN, BQ_DATASET, BQ_TABLE, BQ_DATA) => {
+
+  try {
+    
+    // Insert data into a table
+    await BQ_CONN
+      .dataset(BQ_DATASET)
+      .table(BQ_TABLE)
+      .insert(BQ_DATA);
+  } catch (err) {
+    logging.error(err);
+  }
+
+  logging.info(`Inserted ${BQ_DATA.length} rows`);
+
+  return true;
+
+};
+
+/**
+ * Check for an existing table and create if changes requird
+ * 
+ * @name exists_table
  * @context bigquery
  * @param object BQ_CONN
  * @param string BQ_DATASET
@@ -179,26 +237,31 @@ exports.exists_table = async (BQ_CONN, BQ_DATASET, BQ_TABLE) => {
 /**
  * Check for an existing table and create if changes requird
  * 
- * @name bq_create
+ * @name exists_dataset
  * @context bigquery
  * @param object BQ_CONN
  * @param string BQ_DATASET
  * @return boolean
  **/
-exports.exists_dataset = async (BQ_CONN, BQ_DATASET) => {
+exports.exists_dataset = async (aBQ_CONN, BQ_DATASET) => {
 
-  // check for existing dataset
-  const [dataset] = await BQ_CONN
-    .dataset(BQ_DATASET)
-    .get()
-    .catch(err => {
-      logging.error(err);
-    });
+  try {
+    // check for existing dataset
+    const [dataset] = await aBQ_CONN
+      .dataset(BQ_DATASET)
+      .get()
+      .catch(err => {
+        logging.error(err);
+      });
 
-  logging.info(`${BQ_DATASET} ${(dataset || false) ? 'Found' : 'Not found'}`);
+    logging.info(`${BQ_DATASET} ${(dataset || false) ? 'Found' : 'Not found'}`);
 
-  return !!((dataset || false));
+    return !!(dataset || false);
+  } catch (err) {
+        logging.info(`${BQ_DATASET} ${(false) ? 'Found' : 'Not found'}`);
 
+    return false;
+  }
 };
 
 // eof
